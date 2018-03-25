@@ -81,7 +81,7 @@ public class ReferenceCountingGC {
 
 4. 本地方法栈中JNI引用的对象 (Naive对象) (本地变量表) *(平时很少涉及)*
 
-![image](https://github.com/Ziang-Lu/Miscellaneous-Topics-in-Java-and-Python/blob/master/Java%20Memory%20Management/Java%20Garbage%20Collection/graph_searching.png?raw=true)
+![image](https://github.com/Ziang-Lu/Java-Memory-Management/blob/master/Java%20Garbage%20Collection/graph_searching.png?raw=true)
 
 如上图所示, obj8,、obj9和obj10都没有到GCRoots对象的引用链, 则即便obj9和obj10之间有循环引用, 它们还是会被当成垃圾处理, 可以进行回收
 
@@ -223,7 +223,7 @@ public class FinalizeEscapeDemo {
 
 *假设完成标记之后, 程序从某个被标记过的对象又new了一个新的对象出来, 但是由于这个新的对象"错过"了标记阶段, 它将在清除阶段被清除, 导致GC线程无法正确工作*
 
-![image](https://github.com/Ziang-Lu/Miscellaneous-Topics-in-Java-and-Python/blob/master/Java%20Memory%20Management/Java%20Garbage%20Collection/mark-and-sweep_collector_illustration.jpg?raw=true)
+![image](https://github.com/Ziang-Lu/Java-Memory-Management/blob/master/Java%20Garbage%20Collection/mark-and-sweep_collector_illustration.jpg?raw=true)
 
 #### Pros:
 
@@ -243,7 +243,7 @@ public class FinalizeEscapeDemo {
 
 类似标记-清除算法, 但在清除时回收不存活对象占用的空间后, 会将所有的存货对象往左端空闲空间移动, 并更新对应的指针 (如下图所示)
 
-![image](https://github.com/Ziang-Lu/Miscellaneous-Topics-in-Java-and-Python/blob/master/Java%20Memory%20Management/Java%20Garbage%20Collection/mark-and-compact_collector_illustration.jpg?raw=true)
+![image](https://github.com/Ziang-Lu/Java-Memory-Management/blob/master/Java%20Garbage%20Collection/mark-and-compact_collector_illustration.jpg?raw=true)
 
 #### Pros:
 
@@ -267,7 +267,7 @@ public class FinalizeEscapeDemo {
 4. 这样对象面和空闲面就完成了互换
 5. 程序恢复, 会在新的对象面(原来的空闲面)中分配内存 (如下图所示)
 
-![image](https://github.com/Ziang-Lu/Miscellaneous-Topics-in-Java-and-Python/blob/master/Java%20Memory%20Management/Java%20Garbage%20Collection/stop-and-copy_collector_illustration.jpg?raw=true)
+![image](https://github.com/Ziang-Lu/Java-Memory-Management/blob/master/Java%20Garbage%20Collection/stop-and-copy_collector_illustration.jpg?raw=true)
 
 #### Pros:
 
@@ -288,7 +288,7 @@ public class FinalizeEscapeDemo {
 
 分代如下图所示
 
-![image](https://github.com/Ziang-Lu/Miscellaneous-Topics-in-Java-and-Python/blob/master/Java%20Memory%20Management/Java%20Garbage%20Collection/generation_collector_illustration.png?raw=true)
+![image](https://github.com/Ziang-Lu/Java-Memory-Management/blob/master/Java%20Garbage%20Collection/generation_collector_illustration.png?raw=true)
 
 1. 新生代 (Young Generation)
 
@@ -347,7 +347,7 @@ HotSpot JVM实现的垃圾回收器如下图所示
 
 *如果两个回收器之间有连线, 则说明它们可以搭配使用*
 
-![image](https://github.com/Ziang-Lu/Miscellaneous-Topics-in-Java-and-Python/blob/master/Java%20Memory%20Management/Java%20Garbage%20Collection/HotSpot_garbage_collectors.jpg?raw=true)
+![image](https://github.com/Ziang-Lu/Java-Memory-Management/blob/master/Java%20Garbage%20Collection/HotSpot_garbage_collectors.jpg?raw=true)
 
 术语:
 
