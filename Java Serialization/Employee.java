@@ -17,7 +17,8 @@ public class Employee implements Serializable {
     private final String name;
     /**
      * SSN of this employee.
-     * Instance fields modified by "transient" will not be serialized.
+     * When serializing this class, instance fields modified by "transient" will
+     * be ignored.
      */
     private transient final int ssn;
     /**
