@@ -122,7 +122,12 @@ Concurrent programming要解决有序性、原子性和一致性问题, 那么�
     *即实现了不同thread之间同步该被`volatile`修饰的变量*
 
     * 专门解决可见性问题
+
     * 缺点是由于实现了变量的值的同步, 性能会相应有所缺失
+
+      Note: 有时multi-threading的场景下, 即使不使用`volatile`, 操作系统也会实现可见性, 但这不是guaranteed的; 而使用`volatile`可以guarantee可见性.
+
+    * Check out `VolatileDemo.java`
 
   * `synchronized` 也可实现可见性
 
