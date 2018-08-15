@@ -1,3 +1,5 @@
+This repo contains everything aspect of Java memory management.
+
 # JVM Memory Structure (JVM内存结构)
 
 ![image](https://github.com/Ziang-Lu/Java-Memory-Management/blob/master/java_memory_distribution.png?raw=true)
@@ -143,3 +145,8 @@ Note:
 
 和Java对象在虚拟机中的表现形式有关, 指的是Java对象在内存中的存储的结构
 
+<br>
+
+# License
+
+This repo is distributed under the MIT license.
