@@ -27,29 +27,29 @@ Heap中每个对象实例都有一个引用计数器
 
 ```java
 public class ReferenceCountingGC {
-  /**
-   * 1 MB = 1024 * 1024 bytes
-   */
-  private static final int _1MB = 1024 * 1024;
+    /**
+     * 1 MB = 1024 * 1024 bytes
+     */
+    private static final int _1MB = 1024 * 1024;
 
-  private Object instance;
-  /**
-   * Only used to take some memory.
-   */
-  private byte[] bigSize = new byte[2 * _1MB];
+    private Object instance;
+    /**
+     * Only used to take some memory.
+     */
+    private byte[] bigSize = new byte[2 * _1MB];
 
-  public static void main(String[] args) {
-    ReferenceCountingGC obj1 = new ReferenceCountingGC();
-    ReferenceCountingGC obj2 = new ReferenceCountingGC();
-    obj1.instance = obj2;
-    obj2.instance = obj1;
+    public static void main(String[] args) {
+        ReferenceCountingGC obj1 = new ReferenceCountingGC();
+        ReferenceCountingGC obj2 = new ReferenceCountingGC();
+        obj1.instance = obj2;
+        obj2.instance = obj1;
 
-    obj1 = null;
-    obj2 = null;
+        obj1 = null;
+        obj2 = null;
 
-    System.gc();
-    // 两个对象互相引用着, 但垃圾回收器还是把它们回收了, 说明JVM使用的不是引用计数法
-  }
+        System.gc();
+        // 两个对象互相引用着, 但垃圾回收器还是把它们回收了, 说明JVM使用的不是引用计数法
+    }
 }
 ```
 
@@ -59,7 +59,7 @@ public class ReferenceCountingGC {
 
 ### Algorithm:
 
-程序把所有的引用关系看作一张图, 从第一个节点GCRoot开始, 寻找对应的引用节点, 找到这个节点以后, 继续寻找这个节点的引用节点; 当所有的引用节点寻找完毕之后, 剩余的节点则被人问是没有被引用到的节点, 即无用的节点 (如下图所示)
+程序把所有的引用关系看作一张图, 从第一个节点GCRoot开始, 寻找对应的引用节点, 找到这个节点以后, 继续寻找这个节点的引用节点; 当所有的引用节点寻找完毕之后, 剩余的节点则被认为是没有被引用到的节点, 即无用的节点 (如下图所示)
 
 *[本质上是多个DFS]*
 
@@ -241,7 +241,7 @@ public class FinalizeEscapeDemo {
 
 ### Algorithm:
 
-类似标记-清除算法, 但在清除时回收不存活对象占用的空间后, 会将所有的存货对象往左端空闲空间移动, 并更新对应的指针 (如下图所示)
+类似标记-清除算法, 但在清除时回收不存活对象占用的空间后, 会将所有的存活对象往左端空闲空间移动, 并更新对应的指针 (如下图所示)
 
 ![image](https://github.com/Ziang-Lu/Java-Memory-Management/blob/master/Java%20Garbage%20Collection/mark-and-compact_collector_illustration.jpg?raw=true)
 
@@ -296,11 +296,11 @@ public class FinalizeEscapeDemo {
 
    对象在Eden区中生成
 
-   * 所有新生成的对象首先多事放在新生代的, 新生代的目标就是尽可能快速地回收掉那些生命周期短的对象 (大批对象死去, 少量对象存活)
+   * 所有新生成的对象首先都是放在新生代的, 新生代的目标就是尽可能快速地回收掉那些生命周期短的对象 (大批对象死去, 少量对象存活)
    * 回收时 *(Minor GC, 不一定等Eden区满了才触发)* 先将Eden区存活对象复制到一个Survivor 0区, 然后清空Eden区
    * 当Survivor 0区也存放满了时, 则将Eden区和Survivor 0区存活对象复制到另一个Survivor 1区, 然后清空Eden区和Survivor 0区, 然后交换Survivor 0区和Survivor 1区, 保证Survivor 1区是空的
    * 如此往复
-   * 当Survivor 1区不足以存放Eden区和Survivor 0区的存货对象时, 就将存货对象直接存放到年老代
+   * 当Survivor 1区不足以存放Eden区和Survivor 0区的存活对象时, 就将存货对象直接存放到年老代
 
    只浪费了10%的内存, 这个是可以接受的, 因为我们换来的内存的整齐排列与GC速度
 
@@ -384,4 +384,5 @@ HotSpot JVM实现的垃圾回收器如下图所示
 ## Java有了GC同样会出现内存泄漏问题
 
 1. 各种连接, IO连接、网络连接、数据库连接等没有显示调用close()方法关闭, 不被GC回收导致内存泄漏
-2. 监听器的使用, 在释放对象的同事没有相应删除监听器的时候也有可能导致内存泄漏
+2. 监听器的使用, 在释放对象的同时没有相应删除监听器的时候也有可能导致内存泄漏
+
