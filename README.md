@@ -2,7 +2,7 @@ This repo contains everything aspect of Java memory management.
 
 # JVM Memory Structure (JVM内存结构)
 
-![image](https://github.com/Ziang-Lu/Java-Memory-Management/blob/master/java_memory_distribution.png?raw=true)
+<img src="https://github.com/Ziang-Lu/Java-Memory-Management/blob/master/java_memory_distribution.png?raw=true">
 
 Notes:
 
